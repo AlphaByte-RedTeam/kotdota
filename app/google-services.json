@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "85628293687",
+    "project_id": "kotdota-8434d",
+    "storage_bucket": "kotdota-8434d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85628293687:android:c151d37dab00efec9325b2",
+        "android_client_info": {
+          "package_name": "com.kelompoktiga.kotdota"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85628293687-aq5kka8hgu6fd4sdbdb07k0f1uo5fc2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kelompoktiga.kotdota",
+            "certificate_hash": "29dbe4bc15dc74b2628d1c379d662f14a9a06a84"
+          }
+        },
+        {
+          "client_id": "85628293687-u7e9162fuquph39mqg44jeo50omd20di.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLGeYkNw1NZKWqICQDL7FbKcnOCRUTjy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85628293687-u7e9162fuquph39mqg44jeo50omd20di.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
