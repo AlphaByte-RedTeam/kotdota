@@ -13,4 +13,11 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <!-- Splash screen theme. -->
+    <style name="Theme.App.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+        <item name="windowSplashScreenBackground">@color/woodsmoke</item>
+        <item name="postSplashScreenTheme">@style/Theme.Kotdota</item>
+    </style>
 </resources>
