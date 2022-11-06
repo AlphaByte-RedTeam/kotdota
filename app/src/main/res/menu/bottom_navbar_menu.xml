@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/heroesFragment"
+        android:icon="@drawable/heroes"
+        android:title="Heroes" />
+    <item
+        android:id="@+id/itemsFragment"
+        android:icon="@drawable/items"
+        android:title="Items" />
+    <item
+        android:id="@+id/teamsFragment"
+        android:icon="@drawable/teams"
+        android:title="Teams" />
+</menu>
