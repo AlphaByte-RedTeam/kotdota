@@ -3,4 +3,13 @@
     <string name="onboarding_desc">Win more games by understanding your favorite hero.</string>
     <string name="onboarding_headline">Want to learn more about your hero?</string>
     <string name="get_started">Get Started</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="already_have_account">Already have account?</string>
+    <string name="register">Register</string>
+    <string name="greet_login">Welcome back warrior! 👻</string>
+    <string name="greet_register">Let\'s sign up ⚔️</string>
 </resources>
