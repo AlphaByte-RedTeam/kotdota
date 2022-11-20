@@ -1,10 +1,17 @@
 package com.kelompoktiga.kotdota
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,21 +27,76 @@ class HeroesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var isHeroesFetched: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+//    private val BASE_URL = "https://api.opendota.com/api/"
+//
+//    private val retrofit = Retrofit.Builder()
+//        .addConverterFactory(ScalarsConverterFactory.create())
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        arguments?.let {
+//            param1 = it.getString(ARG_PARAM1)
+//            param2 = it.getString(ARG_PARAM2)
+//        }
+
+//        storage = FirebaseStorage.getInstance("gs://kotdota-678f3.appspot.com")
+
+//        Log.d("connectionStorage", "$storage")
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_heroes, container, false)
+    ): View {
+        val view: View = inflater.inflate(R.layout.fragment_heroes, container, false)
+
+//        view.findViewById<Button>(R.id.but).setOnClickListener {
+//            Log.d("clicked", "a")
+//        }
+
+        HeroApi().getHeroStatsService().getHeroStats().enqueue(object : Callback<List<HeroStatsItem>> {
+            override fun onResponse(
+                call: Call<List<HeroStatsItem>>,
+                response: Response<List<HeroStatsItem>>
+            ) {
+                val heroStats = response.body()
+                if (heroStatsList.isEmpty()) {
+                    heroStatsList.addAll(heroStats!!)
+                }
+
+                Log.d("fetch hero:success", "success")
+
+                buildWidget(view)
+
+                isHeroesFetched = true
+            }
+
+            override fun onFailure(call: Call<List<HeroStatsItem>>, t: Throwable) {
+                Log.d("fetch hero:fail", t.toString())
+            }
+        })
+
+        return view;
+    }
+
+    private fun buildWidget(view: View) {
+        val rvHeroes = view.findViewById<RecyclerView>(R.id.rv_heroes)
+        rvHeroes.setHasFixedSize(true)
+
+        rvHeroes.layoutManager = GridLayoutManager(parentFragment?.context, 3)
+        val heroGridAdapter = HeroGridAdapter(heroStatsList)
+        rvHeroes.adapter = heroGridAdapter
+
+        heroGridAdapter.setOnItemClickCallback(object : HeroGridAdapter.OnItemClickCallback {
+            override fun onItemClicked(pos: Int) {
+                val heroDetailsIntent =
+                    Intent(parentFragment!!.context, HeroDetailsActivity::class.java)
+                heroDetailsIntent.putExtra("id", pos.toString())
+                startActivity(heroDetailsIntent)
+            }
+        })
     }
 
     companion object {
