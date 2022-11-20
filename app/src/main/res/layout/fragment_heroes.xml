@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/linear_gradient_background"
     tools:context=".HeroesFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:id="@+id/materialToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorSecondary"
+                android:background="@color/ghost_white"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme">
 
@@ -43,9 +43,9 @@
                         android:layout_height="0dp" />
 
                     <TextView
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="Search" />
                 </LinearLayout>
 
@@ -71,10 +71,13 @@
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_heroes"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="heroes" />
-    </LinearLayout>
+            android:paddingHorizontal="24dp"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/hero_grid_item">
 
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </FrameLayout>
