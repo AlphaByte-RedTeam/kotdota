@@ -7,7 +7,7 @@
     android:background="@drawable/linear_gradient_background"
     android:orientation="vertical"
     android:padding="24dp"
-    tools:context=".HeroDetailsActivity">
+    tools:context=".activity.HeroDetailsActivity">
 
     <ScrollView
         android:layout_width="match_parent"
