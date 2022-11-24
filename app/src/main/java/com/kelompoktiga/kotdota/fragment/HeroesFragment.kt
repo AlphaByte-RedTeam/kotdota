@@ -1,4 +1,4 @@
-package com.kelompoktiga.kotdota
+package com.kelompoktiga.kotdota.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kelompoktiga.kotdota.*
+import com.kelompoktiga.kotdota.activity.HeroDetailsActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,10 +54,6 @@ class HeroesFragment : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_heroes, container, false)
 
-//        view.findViewById<Button>(R.id.but).setOnClickListener {
-//            Log.d("clicked", "a")
-//        }
-
         HeroApi().getHeroStatsService().getHeroStats().enqueue(object : Callback<List<HeroStatsItem>> {
             override fun onResponse(
                 call: Call<List<HeroStatsItem>>,
@@ -65,11 +63,7 @@ class HeroesFragment : Fragment() {
                 if (heroStatsList.isEmpty()) {
                     heroStatsList.addAll(heroStats!!)
                 }
-
-                Log.d("fetch hero:success", "success")
-
                 buildWidget(view)
-
                 isHeroesFetched = true
             }
 

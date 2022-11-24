@@ -1,10 +1,23 @@
-package com.kelompoktiga.kotdota
+package com.kelompoktiga.kotdota.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import com.google.gson.JsonParser
+import com.google.gson.reflect.TypeToken
+import com.kelompoktiga.kotdota.R
+import com.kelompoktiga.kotdota.data.gson.TeamGsonItem
+import com.kelompoktiga.kotdota.data.repository.FirebaseDb
+import java.lang.reflect.Type
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +46,33 @@ class SavedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_saved, container, false)
+        val t = view.findViewById<TextView>(R.id.txt_test)
+        val uid = Firebase.auth.currentUser?.uid
+        val f = FirebaseDb()
+
+        view.findViewById<Button>(R.id.btn_test).setOnClickListener {
+//            f.getSavedRef().child("heroId").get().addOnSuccessListener {
+//                val heroIdList = it.value.toString().split(",").toTypedArray().filter {
+//                    it.isNotEmpty()
+//                }
+//
+//                val newHeroId = "100"
+//
+//                if (heroIdList.find { it.equals(newHeroId) }.isNullOrEmpty()) {
+//                    val newHeroIdList = heroIdList.toMutableList()
+//                    newHeroIdList.add(newHeroId)
+//                    val newHeroIdListString = newHeroIdList.joinToString(",")
+//                    Log.d("adiw", newHeroIdListString)
+//                    f.getSavedRef().child("heroId").setValue(newHeroIdListString)
+//                } else {
+//                    Log.d("adiw", "ad data")
+//                }
+//            }
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved, container, false)
+        return view
     }
 
     companion object {
