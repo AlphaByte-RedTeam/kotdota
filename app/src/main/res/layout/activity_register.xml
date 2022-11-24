@@ -7,7 +7,7 @@
     android:background="@drawable/linear_gradient_background"
     android:paddingHorizontal="24dp"
     android:paddingVertical="36dp"
-    tools:context=".RegisterActivity">
+    tools:context=".activity.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
