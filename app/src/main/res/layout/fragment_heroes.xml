@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/linear_gradient_background"
-    tools:context=".HeroesFragment">
+    tools:context=".fragment.HeroesFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,10 +74,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_heroes"
             android:layout_width="match_parent"
-            android:paddingHorizontal="24dp"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/hero_grid_item">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:paddingHorizontal="24dp"
+            tools:listitem="@layout/hero_grid_item" />
     </LinearLayout>
 </FrameLayout>
