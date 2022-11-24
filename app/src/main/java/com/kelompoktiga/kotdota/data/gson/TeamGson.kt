@@ -13,6 +13,12 @@ data class TeamGsonItem(
     @field:SerializedName("team_key")
     val teamKey: String? = null,
 
+    @field:SerializedName("team_title")
+    val teamTitle: String? = null,
+
+//    @field:SerializedName("team_desc")
+//    val teamDesc: String? = null,
+
     @field:SerializedName("hero_id1")
     val heroId1: String? = null,
 
