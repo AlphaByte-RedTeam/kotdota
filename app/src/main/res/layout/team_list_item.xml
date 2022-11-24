@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="12dp"
     android:background="@drawable/bg_hero_card"
     android:orientation="horizontal"
-    android:padding="18dp"
-    android:layout_marginVertical="12dp">
+    android:padding="18dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -14,13 +14,11 @@
         app:cardCornerRadius="12dp">
 
         <ImageView
-            android:id="@+id/hero_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/img_hero"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
             android:adjustViewBounds="true"
-            android:maxWidth="120dp"
-            android:maxHeight="120dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/hero" />
     </androidx.cardview.widget.CardView>
 
@@ -30,22 +28,28 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txt_team_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="heroname" />
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="team_title"
+            android:textColor="@color/ghost_white" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="4dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="herodesc" />
+<!--        <TextView-->
+<!--            android:id="@+id/txt_team_desc"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:fontFamily="@font/ubuntu_regular"-->
+<!--            android:text="team_desc"-->
+<!--            android:textColor="@color/ghost_white" />-->
     </LinearLayout>
 </LinearLayout>
