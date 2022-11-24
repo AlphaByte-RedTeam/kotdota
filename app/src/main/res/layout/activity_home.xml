@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
-
+    tools:context=".activity.HomeActivity">
 
     <fragment
         android:id="@+id/fragmentContainerView"
@@ -23,7 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/tabasco"
+        android:paddingVertical="8dp"
+        app:itemIconTint="@color/ghost_white"
+        app:itemTextColor="@color/woodsmoke"
         app:menu="@menu/bottom_navbar_menu" />
-
 
 </LinearLayout>
