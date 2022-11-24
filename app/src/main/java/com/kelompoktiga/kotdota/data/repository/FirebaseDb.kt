@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.kelompoktiga.kotdota.data.gson.TeamGsonItem
 import java.lang.reflect.Type
@@ -20,7 +21,7 @@ class FirebaseDb {
         private val uid = Firebase.auth.currentUser?.uid
     }
 
-     fun getInstance(): FirebaseDatabase {
+    fun getInstance(): FirebaseDatabase {
         return database
     }
 
@@ -32,20 +33,55 @@ class FirebaseDb {
         return getInstance().getReference("saved/$uid")
     }
 
-    fun getAllTeam(): List<TeamGsonItem>? {
-        var gson: List<TeamGsonItem>
+    fun awaitGetAllTeams(callback: (List<TeamGsonItem>?) -> Unit) {
+        var gson: MutableList<TeamGsonItem>? = mutableListOf()
 
-       getTeamRef().get().addOnSuccessListener {
-            Log.i("firebase", "Got value ${it.value}")
-            val achi = it.value.toString()
+        getTeamRef().get().addOnSuccessListener {
+            val heora = it.children.map {
+                val listType: Type = object : TypeToken<TeamGsonItem?>() {}.type
+                return@map Gson().fromJson<TeamGsonItem>(it.value.toString(), listType)
+            }
+            gson!!.addAll(heora)
+            callback(gson)
+        }
+    }
 
-            val listType: Type = object : TypeToken<ArrayList<TeamGsonItem?>?>() {}.type
-            gson = Gson().fromJson(achi, listType)
-        }.addOnFailureListener(
-            return null
-        )
+    fun getAllSaved(callback: (List<String>?) -> Unit) {
+        getSavedRef().child("hero_id").get().addOnSuccessListener {
+            val heroIdList = it.value.toString().split(",").toTypedArray().filter {
+                it.isNotEmpty()
+            }
+            callback(heroIdList)
+        }
+    }
 
-        return gson
+    fun addSaved(heroId: String) {
+        getAllSaved {
+            if (it!!.find { it.equals(heroId) }.isNullOrEmpty()) {
+                val newHeroIdList = it.toMutableList()
+
+                newHeroIdList.add(heroId)
+                val newHeroIdListString = newHeroIdList.joinToString(",")
+
+                getSavedRef().child("hero_id").setValue(newHeroIdListString)
+            }
+        }
+    }
+
+//    fun updateSaved(heroIds: List<String>) {
+//        val newHeroIdListString = heroIds.joinToString(",")
+//        getSavedRef().child("hero_id").setValue(newHeroIdListString)
+//    }
+
+    fun deleteSaved(heroId: String) {
+        getAllSaved {
+            if (!it!!.find { it.equals(heroId) }.isNullOrEmpty()) {
+                val newHeroList = it.toMutableList()
+                newHeroList.remove(heroId)
+                val newHeroIdListString = newHeroList.joinToString(",")
+                getSavedRef().child("hero_id").setValue(newHeroIdListString)
+            }
+        }
     }
 
     fun addTeam(team: TeamGsonItem) {
@@ -53,6 +89,8 @@ class FirebaseDb {
         getTeamRef().child(teamKey!!).setValue(
             mapOf(
                 "team_key" to teamKey.toString(),
+                "team_title" to team.teamTitle.toString(),
+//                "team_desc" to team.teamDesc.toString(),
                 "hero_id1" to team.heroId1.toString(),
                 "hero_id2" to team.heroId2.toString(),
                 "hero_id3" to team.heroId3.toString(),
@@ -65,6 +103,8 @@ class FirebaseDb {
     fun updateTeam(team: TeamGsonItem, teamKey: String) {
         getTeamRef().child(teamKey).updateChildren(
             mapOf(
+                "team_title" to team.teamTitle.toString(),
+//                "team_desc" to team.teamDesc.toString(),
                 "hero_id1" to team.heroId1.toString(),
                 "hero_id2" to team.heroId2.toString(),
                 "hero_id3" to team.heroId3.toString(),
