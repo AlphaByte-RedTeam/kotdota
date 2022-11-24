@@ -1,4 +1,4 @@
-package com.kelompoktiga.kotdota
+package com.kelompoktiga.kotdota.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import android.graphics.BitmapFactory
+import com.kelompoktiga.kotdota.R
+import com.kelompoktiga.kotdota.heroStatsList
 import com.squareup.picasso.Picasso
 
 
