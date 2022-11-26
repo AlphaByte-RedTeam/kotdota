@@ -74,5 +74,5 @@
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/ghost_white"
         android:contentDescription="Save hero"
-        android:src="@drawable/ic_baseline_bookmark_24" />
+        android:src="@drawable/ic_baseline_favorite_24" />
 </FrameLayout>
