@@ -65,6 +65,7 @@ class TeamsFragment : Fragment() {
     private fun buildWidget(view: View, heroes: List<TeamGsonItem>?) {
         if (heroes!!.isEmpty()) {
             view.findViewById<LinearLayout>(R.id.empty_teams_dialog).visibility = View.VISIBLE
+            view.findViewById<ProgressBar>(R.id.progress_bar).visibility = View.GONE
         } else {
             val rvHeroes = view.findViewById<RecyclerView>(R.id.rv_heroes)
             rvHeroes.setHasFixedSize(true)
