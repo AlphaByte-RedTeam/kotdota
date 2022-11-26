@@ -1,6 +1,7 @@
 package com.kelompoktiga.kotdota.activity
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -18,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword("wiyantoeric@gmail.com", "aisdunwad")
         val user = FirebaseAuth.getInstance().currentUser
 
         if (user == null) {
@@ -31,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val toolBar = findViewById<MaterialToolbar>(R.id.materialToolbar)
+
         val navController = findNavController(R.id.fragmentContainerView)
         val toolBarController = findNavController(R.id.fragmentContainerView)
 
@@ -38,17 +39,12 @@ class HomeActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.heroesFragment, R.id.itemsFragment, R.id.teamsFragment
+                R.id.heroesFragment, R.id.savedFragment, R.id.teamsFragment
             )
         )
 
-        val toolBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.app_bar_search
-            )
-        )
+        bottomNav.itemTextColor = ColorStateList.valueOf(resources.getColor(R.color.ghost_white))
 
-        setupActionBarWithNavController(toolBarController, toolBarConfiguration)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
