@@ -17,7 +17,7 @@ class FirebaseDb {
         private val uid = Firebase.auth.currentUser?.uid
     }
 
-    fun getInstance(): FirebaseDatabase {
+    private fun getInstance(): FirebaseDatabase {
         return database
     }
 
@@ -25,12 +25,12 @@ class FirebaseDb {
         return getInstance().getReference("team/$uid")
     }
 
-    fun getSavedRef(): DatabaseReference {
+    private fun getSavedRef(): DatabaseReference {
         return getInstance().getReference("saved/$uid")
     }
 
     fun awaitGetAllTeams(callback: (List<TeamGsonItem>?) -> Unit) {
-        var teamList: MutableList<TeamGsonItem>? = mutableListOf()
+        val teamList: MutableList<TeamGsonItem>? = mutableListOf()
 
         getTeamRef().get().addOnSuccessListener {
             val teams = it.children.map {
