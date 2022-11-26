@@ -33,29 +33,31 @@ class HeroDetailsActivity : AppCompatActivity(), View.OnClickListener {
         Picasso.get().load("https://api.opendota.com${hero.img}")
             .into(findViewById<ImageView>(R.id.img_hero))
         findViewById<TextView>(R.id.txt_hero_name).text = hero.localizedName
-        findViewById<TextView>(R.id.txt_hero_desc).id = hero.id!!.toInt()
         findViewById<ImageButton>(R.id.btn_back).setOnClickListener(this)
+
+        findViewById<TextView>(R.id.health).text = hero.baseHealth.toString()
+        findViewById<TextView>(R.id.mana).text = hero.baseMana.toString()
+        findViewById<TextView>(R.id.armor).text = hero.baseArmor.toString()
+        findViewById<TextView>(R.id.str).text = hero.baseStr.toString()
+        findViewById<TextView>(R.id.agi).text = hero.baseAgi.toString()
+        findViewById<TextView>(R.id.intl).text = hero.baseInt.toString()
+        findViewById<TextView>(R.id.atk_spd).text = hero.attackRate.toString()
 
         fabLike = findViewById(R.id.fab_like)
         fabLike.setOnClickListener(this)
+        isSaved { saved ->
+            if (saved) {
+                setSavedIcon()
+            } else {
+                setUnsavedIcon()
+            }
+        }
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.fab_like -> {
-                var saved: Boolean
-
-                FirebaseDb().getAllSaved {
-                    Log.d("saved?", it?.find { it == hero.id.toString() }.toString())
-
-                    if (it?.find { it == hero.id.toString() }.isNullOrEmpty()) {
-                        saved = false
-                        setUnsavedIcon()
-                    } else {
-                        saved = true
-                        setSavedIcon()
-                    }
-
+                isSaved { saved ->
                     if (saved) {
                         firebaseDb.removeSaved(hero.id.toString())
                         setUnsavedIcon()
@@ -67,8 +69,7 @@ class HeroDetailsActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_back -> {
-                val homeIntent = Intent(this, HomeActivity::class.java)
-                startActivity(homeIntent)
+                finish()
             }
         }
     }
@@ -79,5 +80,14 @@ class HeroDetailsActivity : AppCompatActivity(), View.OnClickListener {
 
     fun setUnsavedIcon() {
         fabLike.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+    }
+
+    fun isSaved(callback: (saved: Boolean) -> Unit) {
+        var saved: Boolean
+
+        FirebaseDb().getAllSaved {
+            saved = !it?.find { it == hero.id.toString() }.isNullOrEmpty()
+            callback(saved)
+        }
     }
 }
