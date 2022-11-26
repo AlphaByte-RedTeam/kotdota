@@ -15,6 +15,13 @@
         android:theme="@style/Theme.Kotdota"
         tools:targetApi="31">
         <activity
+            android:name=".activity.SearchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.AddTeamActivity"
             android:exported="false">
             <meta-data
