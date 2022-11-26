@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -61,44 +63,48 @@ class TeamsFragment : Fragment() {
     }
 
     private fun buildWidget(view: View, heroes: List<TeamGsonItem>?) {
+        if (heroes!!.isEmpty()) {
+            view.findViewById<LinearLayout>(R.id.empty_teams_dialog).visibility = View.VISIBLE
+        } else {
+            val rvHeroes = view.findViewById<RecyclerView>(R.id.rv_heroes)
+            rvHeroes.setHasFixedSize(true)
+
+            rvHeroes.layoutManager = LinearLayoutManager(parentFragment?.context)
+            val teamGridAdapter = TeamGridAdapter(view, heroes!!)
+            rvHeroes.adapter = teamGridAdapter
+
+            teamGridAdapter.setOnItemClickCallback(object : TeamGridAdapter.OnItemClickCallback {
+                override fun onItemClicked(position: Int) {
+                    val teamDetailsIntent =
+                        Intent(parentFragment!!.context, TeamDetailsActivity::class.java)
+                    teamDetailsIntent.putExtra(TeamDetailsActivity.position, position.toString())
+                    startActivity(teamDetailsIntent)
+                }
+            })
+
+            teamGridAdapter.setOnDeleteCickCallback(object : TeamGridAdapter.OnDeleteClickCallback {
+                override fun onDeleteClicked(position: Int) {
+                    try {
+                        val team = teamList[position]
+                        FirebaseDb().removeTeam(team.teamKey!!)
+                        teamList.remove(team)
+
+                        val fragment = parentFragmentManager
+                        fragment.beginTransaction().detach(view.findFragment()).commit()
+                        fragment.beginTransaction().attach(view.findFragment()).commit()
+
+                    } catch (e: FirebaseException) {
+                        Log.e("firebase remove team:fail", e.toString())
+                    }
+                }
+            })
+            view.findViewById<ProgressBar>(R.id.progress_bar).visibility = View.GONE
+        }
+
         view.findViewById<FloatingActionButton>(R.id.fab_add).setOnClickListener {
             val addTeamIntent = Intent(it.context, AddTeamActivity::class.java)
             startActivity(addTeamIntent)
         }
-
-        val rvHeroes = view.findViewById<RecyclerView>(R.id.rv_heroes)
-        rvHeroes.setHasFixedSize(true)
-
-        rvHeroes.layoutManager = LinearLayoutManager(parentFragment?.context)
-        val teamGridAdapter = TeamGridAdapter(view, heroes!!)
-        rvHeroes.adapter = teamGridAdapter
-
-        teamGridAdapter.setOnItemClickCallback(object : TeamGridAdapter.OnItemClickCallback {
-            override fun onItemClicked(position: Int) {
-                val teamDetailsIntent =
-                    Intent(parentFragment!!.context, TeamDetailsActivity::class.java)
-                teamDetailsIntent.putExtra(TeamDetailsActivity.position, position.toString())
-                startActivity(teamDetailsIntent)
-            }
-        })
-
-        teamGridAdapter.setOnDeleteCickCallback(object : TeamGridAdapter.OnDeleteClickCallback {
-            override fun onDeleteClicked(position: Int) {
-                try {
-                    val team = teamList[position]
-                    FirebaseDb().removeTeam(team.teamKey!!)
-                    teamList.remove(team)
-
-                    val fragment = parentFragmentManager
-                    fragment.beginTransaction().detach(view.findFragment()).commit()
-                    fragment.beginTransaction().attach(view.findFragment()).commit()
-
-                } catch (e: FirebaseException) {
-                    Log.e("firebase remove team:fail", e.toString())
-                }
-
-            }
-        })
     }
 
     companion object {
