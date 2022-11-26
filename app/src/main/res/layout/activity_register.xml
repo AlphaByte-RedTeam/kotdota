@@ -44,8 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/edit_text_bg"
+            android:fontFamily="@font/ubuntu_regular"
             android:inputType="textEmailAddress"
-            android:paddingHorizontal="24dp" />
+            android:paddingHorizontal="24dp"
+            android:textColor="@color/ghost_white" />
 
         <Space
             android:layout_width="match_parent"
@@ -69,8 +71,10 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/edit_text_bg"
+            android:fontFamily="@font/ubuntu_regular"
             android:inputType="textPassword"
-            android:paddingHorizontal="24dp" />
+            android:paddingHorizontal="24dp"
+            android:textColor="@color/ghost_white" />
     </LinearLayout>
 
     <LinearLayout
