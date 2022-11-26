@@ -23,11 +23,17 @@ class HeroGridAdapter(private val heroList: MutableList<HeroStatsItem>) :
     }
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
-        Picasso.get().load("https://api.opendota.com${heroStatsList[position].img}")
+        val hero = heroList[position]
+        val savedPos = heroStatsList.indexOf(
+            heroStatsList.find {
+                it.heroId == hero.heroId
+            }
+        )
+
+        Picasso.get().load("https://api.opendota.com${hero.img}")
             .into(holder.heroImg)
-        holder.heroName.text = heroList[position].localizedName
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(holder.adapterPosition) }
-    }
+        holder.heroName.text = hero.localizedName
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(savedPos) }}
 
     override fun getItemCount(): Int {
         return heroList.size
