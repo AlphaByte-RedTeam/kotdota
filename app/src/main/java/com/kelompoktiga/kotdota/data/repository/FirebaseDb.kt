@@ -1,15 +1,11 @@
 package com.kelompoktiga.kotdota.data.repository
 
-import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.kelompoktiga.kotdota.data.gson.TeamGsonItem
 import java.lang.reflect.Type
@@ -34,15 +30,15 @@ class FirebaseDb {
     }
 
     fun awaitGetAllTeams(callback: (List<TeamGsonItem>?) -> Unit) {
-        var gson: MutableList<TeamGsonItem>? = mutableListOf()
+        var teamList: MutableList<TeamGsonItem>? = mutableListOf()
 
         getTeamRef().get().addOnSuccessListener {
-            val heora = it.children.map {
+            val teams = it.children.map {
                 val listType: Type = object : TypeToken<TeamGsonItem?>() {}.type
                 return@map Gson().fromJson<TeamGsonItem>(it.value.toString(), listType)
             }
-            gson!!.addAll(heora)
-            callback(gson)
+            teamList!!.addAll(teams)
+            callback(teamList)
         }
     }
 
@@ -56,11 +52,15 @@ class FirebaseDb {
     }
 
     fun addSaved(heroId: String) {
-        getAllSaved {
-            if (it!!.find { it.equals(heroId) }.isNullOrEmpty()) {
-                val newHeroIdList = it.toMutableList()
+        getAllSaved { savedIds ->
+//            check if there is no current adding id
+            if (savedIds!!.find { it.equals(heroId) }.isNullOrEmpty()) {
+                val newHeroIdList = savedIds.filter {
+                    it != "null"
+                }.toMutableList()
 
                 newHeroIdList.add(heroId)
+
                 val newHeroIdListString = newHeroIdList.joinToString(",")
 
                 getSavedRef().child("hero_id").setValue(newHeroIdListString)
@@ -73,12 +73,14 @@ class FirebaseDb {
 //        getSavedRef().child("hero_id").setValue(newHeroIdListString)
 //    }
 
-    fun deleteSaved(heroId: String) {
+    fun removeSaved(heroId: String) {
         getAllSaved {
             if (!it!!.find { it.equals(heroId) }.isNullOrEmpty()) {
                 val newHeroList = it.toMutableList()
+
                 newHeroList.remove(heroId)
                 val newHeroIdListString = newHeroList.joinToString(",")
+
                 getSavedRef().child("hero_id").setValue(newHeroIdListString)
             }
         }
