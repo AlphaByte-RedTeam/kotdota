@@ -2,18 +2,20 @@ package com.kelompoktiga.kotdota.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.FirebaseException
 import com.kelompoktiga.kotdota.R
-import com.kelompoktiga.kotdota.activity.TeamDetailsActivity
 import com.kelompoktiga.kotdota.TeamGridAdapter
 import com.kelompoktiga.kotdota.activity.AddTeamActivity
+import com.kelompoktiga.kotdota.activity.TeamDetailsActivity
 import com.kelompoktiga.kotdota.data.gson.TeamGsonItem
 import com.kelompoktiga.kotdota.data.repository.FirebaseDb
 import com.kelompoktiga.kotdota.teamList
@@ -44,7 +46,7 @@ class TeamsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_teams, container, false)
         val firebaseDb = FirebaseDb()
@@ -59,7 +61,7 @@ class TeamsFragment : Fragment() {
     }
 
     private fun buildWidget(view: View, heroes: List<TeamGsonItem>?) {
-        view.findViewById<FloatingActionButton>(R.id.fab_add).setOnClickListener{
+        view.findViewById<FloatingActionButton>(R.id.fab_add).setOnClickListener {
             val addTeamIntent = Intent(it.context, AddTeamActivity::class.java)
             startActivity(addTeamIntent)
         }
@@ -68,7 +70,7 @@ class TeamsFragment : Fragment() {
         rvHeroes.setHasFixedSize(true)
 
         rvHeroes.layoutManager = LinearLayoutManager(parentFragment?.context)
-        val teamGridAdapter = TeamGridAdapter(heroes!!)
+        val teamGridAdapter = TeamGridAdapter(view, heroes!!)
         rvHeroes.adapter = teamGridAdapter
 
         teamGridAdapter.setOnItemClickCallback(object : TeamGridAdapter.OnItemClickCallback {
@@ -77,6 +79,24 @@ class TeamsFragment : Fragment() {
                     Intent(parentFragment!!.context, TeamDetailsActivity::class.java)
                 teamDetailsIntent.putExtra(TeamDetailsActivity.position, position.toString())
                 startActivity(teamDetailsIntent)
+            }
+        })
+
+        teamGridAdapter.setOnDeleteCickCallback(object : TeamGridAdapter.OnDeleteClickCallback {
+            override fun onDeleteClicked(position: Int) {
+                try {
+                    val team = teamList[position]
+                    FirebaseDb().removeTeam(team.teamKey!!)
+                    teamList.remove(team)
+
+                    val fragment = parentFragmentManager
+                    fragment.beginTransaction().detach(view.findFragment()).commit()
+                    fragment.beginTransaction().attach(view.findFragment()).commit()
+
+                } catch (e: FirebaseException) {
+                    Log.e("firebase remove team:fail", e.toString())
+                }
+
             }
         })
     }
