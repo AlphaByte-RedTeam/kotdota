@@ -11,7 +11,7 @@
         android:label="fragment_heroes"
         tools:layout="@layout/fragment_heroes" />
     <fragment
-        android:id="@+id/itemsFragment"
+        android:id="@+id/savedFragment"
         android:name="com.kelompoktiga.kotdota.fragment.SavedFragment"
         android:label="fragment_items"
         tools:layout="@layout/fragment_saved" />
