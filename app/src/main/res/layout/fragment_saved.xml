@@ -7,4 +7,11 @@
     android:padding="24dp"
     tools:context=".fragment.SavedFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_heroes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="24dp"
+        tools:listitem="@layout/hero_grid_item" />
+
 </FrameLayout>
