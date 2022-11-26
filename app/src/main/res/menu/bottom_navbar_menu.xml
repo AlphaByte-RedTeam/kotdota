@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/heroesFragment"
+        android:icon="@drawable/hero_navbar_icon"
+        android:title="Heroes" />
+    <item
+        android:id="@+id/savedFragment"
+        android:icon="@drawable/saved_navbar_icon"
+        android:title="Saved" />
+    <item
+        android:id="@+id/teamsFragment"
+        android:icon="@drawable/teams_navbar_icon"
+        android:title="Teams" />
+</menu>

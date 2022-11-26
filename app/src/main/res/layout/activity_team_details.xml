@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/linear_gradient_background"
+    android:orientation="vertical"
+    tools:context=".activity.TeamDetailsActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pop_up_hero_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_margin="24dp"
+            android:backgroundTint="@color/tabasco"
+            android:visibility="gone"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:backgroundTint="@color/transparent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/btn_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="24dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_baseline_close_32" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_heroes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="24dp"
+                    tools:listitem="@layout/hero_grid_item" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/base_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_arrow_back_32" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edit_text_team_title"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/bg_hero_card"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:hint="Enter team name"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="16dp"
+                        android:text="Collection title"
+                        android:textColor="@color/ghost_white"
+                        android:textColorHint="@color/ghost_white"
+                        android:textSize="24sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/txt_team_title"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/bg_hero_card"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="16dp"
+                        android:text="Collection title"
+                        android:textColor="@color/ghost_white"
+                        android:textSize="24sp" />
+                </FrameLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_baseline_edit_32" />
+
+                <ImageButton
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_baseline_done_32"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <!--    <TextView-->
+            <!--        android:id="@+id/txt_team_desc"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:fontFamily="@font/ubuntu_regular"-->
+            <!--        android:text="Collection description"-->
+            <!--        android:textColor="@color/ghost_white" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="110dp"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/frame_edit1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/dimmed_black"
+                        android:visibility="gone"
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:id="@+id/btn_edit_hero1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_baseline_edit_52" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/hero_card_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_hero_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="85dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:backgroundTint="@color/transparent"
+                            android:outlineAmbientShadowColor="@color/transparent"
+                            android:outlineSpotShadowColor="@color/transparent"
+                            app:cardCornerRadius="12dp">
+
+                            <ImageView
+                                android:id="@+id/hero_img1"
+                                android:layout_width="85dp"
+                                android:layout_height="70dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop" />
+                        </androidx.cardview.widget.CardView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/txt_hero_name1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/ghost_white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="110dp"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/frame_edit2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/dimmed_black"
+                        android:visibility="gone"
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:id="@+id/btn_edit_hero2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_baseline_edit_52" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/hero_card_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_hero_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="85dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:backgroundTint="@color/transparent"
+                            android:outlineAmbientShadowColor="@color/transparent"
+                            android:outlineSpotShadowColor="@color/transparent"
+                            app:cardCornerRadius="12dp">
+
+                            <ImageView
+                                android:id="@+id/hero_img2"
+
+                                android:layout_width="85dp"
+                                android:layout_height="70dp"
+                                android:adjustViewBounds="true"
+
+                                android:scaleType="centerCrop" />
+                        </androidx.cardview.widget.CardView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/txt_hero_name2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/ghost_white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="110dp"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/frame_edit3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/dimmed_black"
+                        android:visibility="gone"
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:id="@+id/btn_edit_hero3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_baseline_edit_52" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/hero_card_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_hero_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="85dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:backgroundTint="@color/transparent"
+                            android:outlineAmbientShadowColor="@color/transparent"
+                            android:outlineSpotShadowColor="@color/transparent"
+                            app:cardCornerRadius="12dp">
+
+                            <ImageView
+                                android:id="@+id/hero_img3"
+                                android:layout_width="86dp"
+                                android:layout_height="60dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop" />
+                        </androidx.cardview.widget.CardView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/txt_hero_name3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/ghost_white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="110dp"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/frame_edit4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/dimmed_black"
+                        android:visibility="gone"
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:id="@+id/btn_edit_hero4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_baseline_edit_52" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/hero_card_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_hero_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="85dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:backgroundTint="@color/transparent"
+                            android:outlineAmbientShadowColor="@color/transparent"
+                            android:outlineSpotShadowColor="@color/transparent"
+                            app:cardCornerRadius="12dp">
+
+                            <ImageView
+                                android:id="@+id/hero_img4"
+                                android:layout_width="85dp"
+                                android:layout_height="70dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop" />
+                        </androidx.cardview.widget.CardView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/txt_hero_name4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/ghost_white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="110dp"
+                    android:layout_height="130dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="12dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/frame_edit5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/dimmed_black"
+                        android:visibility="gone"
+                        app:cardCornerRadius="15dp">
+
+                        <ImageView
+                            android:id="@+id/btn_edit_hero5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_baseline_edit_52" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/hero_card_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_hero_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="85dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:backgroundTint="@color/transparent"
+                            android:outlineAmbientShadowColor="@color/transparent"
+                            android:outlineSpotShadowColor="@color/transparent"
+                            app:cardCornerRadius="12dp">
+
+                            <ImageView
+                                android:id="@id/hero_img5"
+                                android:layout_width="85dp"
+                                android:layout_height="70dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop" />
+                        </androidx.cardview.widget.CardView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/txt_hero_name5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/ghost_white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

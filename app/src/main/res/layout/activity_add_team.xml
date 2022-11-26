@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/linear_gradient_background"
+    tools:context=".activity.AddTeamActivity">
+
+    <LinearLayout
+        android:id="@+id/base_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_baseline_arrow_back_32" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="24dp" />
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/txt_team_title"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="52dp"-->
+        <!--            android:hint="Team title"-->
+        <!--            android:paddingHorizontal="20dp"-->
+        <!--            android:textColorHint="@color/ghost_white"-->
+        <!--            android:textColor="@color/ghost_white"-->
+        <!--            android:background="@drawable/bg_hero_card" />-->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Team Title"
+            android:textColorHint="@color/ghost_white"
+            app:boxStrokeWidth="0dp"
+            app:hintTextColor="@color/ghost_white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_team_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/bg_hero_card"
+                android:textColor="@color/ghost_white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/hero_1"
+                android:layout_width="110dp"
+                android:layout_height="130dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/bg_hero_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="85dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/transparent"
+                    android:outlineAmbientShadowColor="@color/transparent"
+                    android:outlineSpotShadowColor="@color/transparent"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:id="@+id/hero_img1"
+                        android:layout_width="85dp"
+                        android:layout_height="70dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop" />
+                </androidx.cardview.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:id="@+id/txt_hero_name1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hero_2"
+                android:layout_width="110dp"
+                android:layout_height="130dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/bg_hero_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="85dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/transparent"
+                    android:outlineAmbientShadowColor="@color/transparent"
+                    android:outlineSpotShadowColor="@color/transparent"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:id="@+id/hero_img2"
+                        android:layout_width="85dp"
+                        android:layout_height="70dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop" />
+                </androidx.cardview.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:id="@+id/txt_hero_name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hero_3"
+                android:layout_width="110dp"
+                android:layout_height="130dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/bg_hero_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="85dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/transparent"
+                    android:outlineAmbientShadowColor="@color/transparent"
+                    android:outlineSpotShadowColor="@color/transparent"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:id="@+id/hero_img3"
+                        android:layout_width="85dp"
+                        android:layout_height="70dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop" />
+                </androidx.cardview.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:id="@+id/txt_hero_name3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hero_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="130dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/bg_hero_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="85dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/transparent"
+                    android:outlineAmbientShadowColor="@color/transparent"
+                    android:outlineSpotShadowColor="@color/transparent"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:id="@+id/hero_img4"
+                        android:layout_width="85dp"
+                        android:layout_height="70dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop" />
+                </androidx.cardview.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:id="@+id/txt_hero_name4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hero_5"
+                android:layout_width="110dp"
+                android:layout_height="130dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/bg_hero_card"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="85dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/transparent"
+                    android:outlineAmbientShadowColor="@color/transparent"
+                    android:outlineSpotShadowColor="@color/transparent"
+                    app:cardCornerRadius="12dp">
+
+                    <ImageView
+                        android:id="@+id/hero_img5"
+                        android:layout_width="85dp"
+                        android:layout_height="70dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop" />
+                </androidx.cardview.widget.CardView>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:id="@+id/txt_hero_name5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/ghost_white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="52dp" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Save"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pop_up_hero_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_margin="24dp"
+        android:backgroundTint="@color/tabasco"
+        android:visibility="gone"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/transparent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="24dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_close_32" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_heroes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24dp"
+                tools:listitem="@layout/hero_grid_item" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>

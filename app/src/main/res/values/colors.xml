@@ -9,4 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="woodsmoke">#151515</color>
+
+    <color name="tabasco">#FFAE3119</color>
+    <color name="cinnabar">#FFEF4A35</color>
+    <color name="space_cadet">#FF1D3461</color>
+    <color name="ghost_white">#FFF7F7FF</color>
+    <color name="dimmed_black">#66151515</color>
+
+
 </resources>
