@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.kelompoktiga.kotdota.R
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -24,10 +26,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        auth = Firebase.auth
+
         btnLogin = findViewById(R.id.btn_login)
         tvRegister = findViewById(R.id.tv_register)
         etEmail = findViewById(R.id.et_email)
         etPassword = findViewById(R.id.et_password)
+
+        tvRegister.setOnClickListener(this)
+        btnLogin.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
