@@ -2,25 +2,18 @@ package com.kelompoktiga.kotdota.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
-import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
 import com.kelompoktiga.kotdota.*
 import com.kelompoktiga.kotdota.activity.HeroDetailsActivity
-import com.kelompoktiga.kotdota.data.gson.TeamGsonItem
 import com.kelompoktiga.kotdota.data.repository.FirebaseDb
-import java.lang.reflect.Type
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,7 +47,7 @@ class SavedFragment : Fragment() {
 
         FirebaseDb().getAllSaved { savedHeroes ->
             if (savedHeroes.isNullOrEmpty()) {
-
+                view.findViewById<LinearLayout>(R.id.empty_saved_dialog).visibility = View.VISIBLE
             } else {
                 val savedHeroList = savedHeroes.map { savedId ->
                     heroStatsList.find {
@@ -79,6 +72,7 @@ class SavedFragment : Fragment() {
                     }
                 })
             }
+            view.findViewById<ProgressBar>(R.id.progress_bar).visibility = View.GONE
         }
         // Inflate the layout for this fragment
         return view

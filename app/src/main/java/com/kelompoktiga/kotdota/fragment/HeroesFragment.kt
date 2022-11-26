@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.ProgressBar
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -72,6 +73,8 @@ class HeroesFragment : Fragment() {
                         heroStatsList.addAll(heroStats!!)
                     }
                     buildWidget(view)
+
+                    view.findViewById<ProgressBar>(R.id.progress_bar).visibility = View.GONE
                     isHeroesFetched = true
                 }
 
