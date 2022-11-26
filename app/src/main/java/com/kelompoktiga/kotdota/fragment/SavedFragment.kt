@@ -1,5 +1,6 @@
 package com.kelompoktiga.kotdota.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
-import com.kelompoktiga.kotdota.R
+import com.kelompoktiga.kotdota.*
+import com.kelompoktiga.kotdota.activity.HeroDetailsActivity
 import com.kelompoktiga.kotdota.data.gson.TeamGsonItem
 import com.kelompoktiga.kotdota.data.repository.FirebaseDb
 import java.lang.reflect.Type
@@ -47,30 +51,35 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_saved, container, false)
-        val t = view.findViewById<TextView>(R.id.txt_test)
-        val uid = Firebase.auth.currentUser?.uid
-        val f = FirebaseDb()
 
-        view.findViewById<Button>(R.id.btn_test).setOnClickListener {
-//            f.getSavedRef().child("heroId").get().addOnSuccessListener {
-//                val heroIdList = it.value.toString().split(",").toTypedArray().filter {
-//                    it.isNotEmpty()
-//                }
-//
-//                val newHeroId = "100"
-//
-//                if (heroIdList.find { it.equals(newHeroId) }.isNullOrEmpty()) {
-//                    val newHeroIdList = heroIdList.toMutableList()
-//                    newHeroIdList.add(newHeroId)
-//                    val newHeroIdListString = newHeroIdList.joinToString(",")
-//                    Log.d("adiw", newHeroIdListString)
-//                    f.getSavedRef().child("heroId").setValue(newHeroIdListString)
-//                } else {
-//                    Log.d("adiw", "ad data")
-//                }
-//            }
+        FirebaseDb().getAllSaved { savedHeroes ->
+            if (savedHeroes.isNullOrEmpty()) {
+
+            } else {
+                val savedHeroList = savedHeroes.map { savedId ->
+                    heroStatsList.find {
+                        it.id == savedId.toInt()
+                    }
+                }
+
+                val rvHeroes = view.findViewById<RecyclerView>(R.id.rv_heroes)
+                rvHeroes.setHasFixedSize(true)
+
+                rvHeroes.layoutManager = GridLayoutManager(parentFragment?.context, 3)
+                val heroGridAdapter = SavedGridAdapter(savedHeroList as MutableList<HeroStatsItem>)
+
+                rvHeroes.adapter = heroGridAdapter
+                heroGridAdapter.setOnItemClickCallback(object :
+                    SavedGridAdapter.OnItemClickCallback {
+                    override fun onItemClicked(pos: Int) {
+                        val heroDetailsIntent =
+                            Intent(parentFragment!!.context, HeroDetailsActivity::class.java)
+                        heroDetailsIntent.putExtra("id", pos.toString())
+                        startActivity(heroDetailsIntent)
+                    }
+                })
+            }
         }
-
         // Inflate the layout for this fragment
         return view
     }
