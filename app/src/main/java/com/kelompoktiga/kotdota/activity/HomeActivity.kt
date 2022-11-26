@@ -1,5 +1,6 @@
 package com.kelompoktiga.kotdota.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -16,7 +17,17 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
         FirebaseAuth.getInstance().signInWithEmailAndPassword("wiyantoeric@gmail.com", "aisdunwad")
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if (user == null) {
+            val loginIntent = Intent(this, LoginActivity::class.java)
+
+            loginIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(loginIntent)
+            finish()
+        }
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val toolBar = findViewById<MaterialToolbar>(R.id.materialToolbar)
