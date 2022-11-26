@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.kelompoktiga.kotdota.SavedData.savedList
+import com.squareup.picasso.Picasso
 
-class SavedGridAdapter(private val heroList: MutableList<HeroStatsItem>) : RecyclerView.Adapter<SavedGridAdapter.GridViewHolder>() {
+class SavedGridAdapter(private val heroList: MutableList<HeroStatsItem>) :
+    RecyclerView.Adapter<SavedGridAdapter.GridViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -17,28 +17,35 @@ class SavedGridAdapter(private val heroList: MutableList<HeroStatsItem>) : Recyc
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GridViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_grid_item, parent, false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.hero_grid_item, parent, false)
         return GridViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
-        Glide.with(holder.itemView.context)
-            .load(savedList[position].img)
-            .apply(RequestOptions().override(350, 550))
-            .into(holder.imgPhoto)
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(savedList[holder.adapterPosition]) }
+        val hero = heroList[position]
+        val savedPos = heroStatsList.indexOf(
+            heroStatsList.find {
+                it.heroId == hero.heroId
+            }
+        )
+
+        Picasso.get().load("https://api.opendota.com${hero.img}")
+            .into(holder.heroImg)
+        holder.heroName.text = hero.localizedName
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(savedPos) }
     }
 
     override fun getItemCount(): Int {
-        return savedList.size
+        return heroList.size
     }
 
     inner class GridViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imgPhoto: ImageView = itemView.findViewById(R.id.img_item)
+        var heroImg: ImageView = itemView.findViewById(R.id.img_hero)
+        var heroName: TextView = itemView.findViewById(R.id.txt_hero_name)
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: Saved)
+        fun onItemClicked(pos: Int)
     }
-
 }
