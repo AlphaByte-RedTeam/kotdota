@@ -4,16 +4,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.PopupMenu
+import android.widget.TextView.OnEditorActionListener
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.kelompoktiga.kotdota.*
 import com.kelompoktiga.kotdota.activity.HeroDetailsActivity
+import com.kelompoktiga.kotdota.activity.HomeActivity
+import com.kelompoktiga.kotdota.activity.LoginActivity
+import com.kelompoktiga.kotdota.activity.SearchActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,48 +42,64 @@ class HeroesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
     private var isHeroesFetched: Boolean = false
-
-//    private val BASE_URL = "https://api.opendota.com/api/"
-//
-//    private val retrofit = Retrofit.Builder()
-//        .addConverterFactory(ScalarsConverterFactory.create())
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-
-//        storage = FirebaseStorage.getInstance("gs://kotdota-678f3.appspot.com")
-
-//        Log.d("connectionStorage", "$storage")
-//    }
+    private lateinit var editSearch: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_heroes, container, false)
+        editSearch = view.findViewById(R.id.edit_search)
 
-        HeroApi().getHeroStatsService().getHeroStats().enqueue(object : Callback<List<HeroStatsItem>> {
-            override fun onResponse(
-                call: Call<List<HeroStatsItem>>,
-                response: Response<List<HeroStatsItem>>
-            ) {
-                val heroStats = response.body()
-                if (heroStatsList.isEmpty()) {
-                    heroStatsList.addAll(heroStats!!)
-                }
-                buildWidget(view)
-                isHeroesFetched = true
+        editSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchHero(view)
+                return@OnEditorActionListener true
             }
-
-            override fun onFailure(call: Call<List<HeroStatsItem>>, t: Throwable) {
-                Log.d("fetch hero:fail", t.toString())
-            }
+            false
         })
+
+        HeroApi().getHeroStatsService().getHeroStats()
+            .enqueue(object : Callback<List<HeroStatsItem>> {
+                override fun onResponse(
+                    call: Call<List<HeroStatsItem>>,
+                    response: Response<List<HeroStatsItem>>
+                ) {
+                    val heroStats = response.body()
+                    if (heroStatsList.isEmpty()) {
+                        heroStatsList.addAll(heroStats!!)
+                    }
+                    buildWidget(view)
+                    isHeroesFetched = true
+                }
+
+                override fun onFailure(call: Call<List<HeroStatsItem>>, t: Throwable) {
+                    Log.e("fetch hero:fail", t.toString())
+                }
+            })
+
+        view.findViewById<ImageButton>(R.id.btn_popup).setOnClickListener { it ->
+            val popup = PopupMenu(view.context, it)
+            popup.inflate(R.menu.home_popup_menu)
+            popup.setForceShowIcon(true)
+            popup.show()
+
+            popup.setOnMenuItemClickListener { item: MenuItem? ->
+                when (item?.itemId) {
+                    R.id.logout -> {
+                        FirebaseAuth.getInstance().signOut()
+                        val loginIntent = Intent(requireParentFragment().context, LoginActivity::class.java)
+
+                        loginIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(loginIntent)
+                        requireParentFragment().requireActivity().finish()
+                    }
+                }
+                true
+            }
+        }
 
         return view;
     }
@@ -91,6 +120,16 @@ class HeroesFragment : Fragment() {
                 startActivity(heroDetailsIntent)
             }
         })
+    }
+
+    private fun searchHero(view: View) {
+        val searchName = editSearch.text.toString()
+
+        if (searchName.isNotEmpty()) {
+            val searchIntent = Intent(view.context, SearchActivity::class.java)
+            searchIntent.putExtra(SearchActivity.searchName, searchName)
+            startActivity(searchIntent)
+        }
     }
 
     companion object {
