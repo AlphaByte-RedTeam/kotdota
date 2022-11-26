@@ -73,6 +73,14 @@ class TeamDetailsActivity : AppCompatActivity(), View.OnClickListener {
         R.id.txt_hero_name5,
     )
 
+    val heroCards = listOf(
+        R.id.hero_card_1,
+        R.id.hero_card_2,
+        R.id.hero_card_3,
+        R.id.hero_card_4,
+        R.id.hero_card_5,
+    )
+
     companion object {
         const val position = "position"
     }
@@ -133,6 +141,10 @@ class TeamDetailsActivity : AppCompatActivity(), View.OnClickListener {
             findViewById<CardView>(it).setOnClickListener(this)
         }
 
+        heroCards.forEach {
+            findViewById<LinearLayout>(it).setOnClickListener(this)
+        }
+
         rvHeroes = findViewById(R.id.rv_heroes)
         val heroGridAdapter = HeroGridAdapter(heroStatsList)
 
@@ -168,6 +180,10 @@ class TeamDetailsActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.txt_team_title -> {
                 enterEditMode()
+            }
+            R.id.btn_close -> {
+                removeDimmedBackground()
+                popUpHeroList.visibility = View.GONE
             }
             R.id.btn_save -> {
                 val newTeamTitle = editTxtTeamTitle.text.toString()
@@ -271,9 +287,60 @@ class TeamDetailsActivity : AppCompatActivity(), View.OnClickListener {
                     index = 4
                 )
             }
-            R.id.btn_close -> {
-                removeDimmedBackground()
-                popUpHeroList.visibility = View.GONE
+            R.id.hero_card_1 -> {
+                val heroId = heroIds[0]
+                if (heroId != null) {
+                    val savedPos = findSavedPos(heroId.toInt())
+
+                    val heroDetailsIntent =
+                        Intent(v.context, HeroDetailsActivity::class.java)
+                    heroDetailsIntent.putExtra("id", savedPos.toString())
+                    startActivity(heroDetailsIntent)
+                }
+            }
+            R.id.hero_card_2 -> {
+                val heroId = heroIds[1]
+                if (heroId != null) {
+                    val savedPos = findSavedPos(heroId.toInt())
+
+                    val heroDetailsIntent =
+                        Intent(v.context, HeroDetailsActivity::class.java)
+                    heroDetailsIntent.putExtra("id", savedPos.toString())
+                    startActivity(heroDetailsIntent)
+                }
+            }
+            R.id.hero_card_3 -> {
+                val heroId = heroIds[2]
+                if (heroId != null) {
+                    val savedPos = findSavedPos(heroId.toInt())
+
+                    val heroDetailsIntent =
+                        Intent(v.context, HeroDetailsActivity::class.java)
+                    heroDetailsIntent.putExtra("id", savedPos.toString())
+                    startActivity(heroDetailsIntent)
+                }
+            }
+            R.id.hero_card_4 -> {
+                val heroId = heroIds[3]
+                if (heroId != null) {
+                    val savedPos = findSavedPos(heroId.toInt())
+
+                    val heroDetailsIntent =
+                        Intent(v.context, HeroDetailsActivity::class.java)
+                    heroDetailsIntent.putExtra("id", savedPos.toString())
+                    startActivity(heroDetailsIntent)
+                }
+            }
+            R.id.hero_card_5 -> {
+                val heroId = heroIds[4]
+                if (heroId != null) {
+                    val savedPos = findSavedPos(heroId.toInt())
+
+                    val heroDetailsIntent =
+                        Intent(v.context, HeroDetailsActivity::class.java)
+                    heroDetailsIntent.putExtra("id", savedPos.toString())
+                    startActivity(heroDetailsIntent)
+                }
             }
         }
     }
@@ -305,5 +372,13 @@ class TeamDetailsActivity : AppCompatActivity(), View.OnClickListener {
         btnSave.visibility = View.VISIBLE
         txtTeamTitle.visibility = View.GONE
         editTxtTeamTitle.visibility = View.VISIBLE
+    }
+
+    fun findSavedPos(heroId: Int): Int {
+        return heroStatsList.indexOf(
+            heroStatsList.find {
+                it.heroId == heroId
+            }
+        )
     }
 }
